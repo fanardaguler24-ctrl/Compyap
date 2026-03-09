@@ -1,36 +1,47 @@
 import streamlit as st
 import cv2
-import moviepy.editor as mp
 import numpy as np
 import os
 
-st.set_page_config(page_title="EAGLE22 AI COMP MAKER", layout="centered")
+# Sayfa Ayarı
+st.set_page_config(page_title="AI Comp Maker", page_icon="✂️")
 
-# Görseldeki Arayüz Tasarımı
-st.markdown("<h3 style='text-align: center; color: #f1c40f;'>EAGLE22 STUDIO</h3>", unsafe_allow_html=True)
-st.markdown("<h1 style='text-align: center; color: #2ecc71;'>AI COMP MAKER</h1>", unsafe_allow_html=True)
+# CSS ile Arayüzü Fotoğraftakine Benzettim
+st.markdown("""
+    <style>
+    .main { background-color: #0e1117; }
+    h3 { color: #f1c40f; text-align: center; margin-bottom: 0px; }
+    h1 { color: #2ecc71; text-align: center; margin-top: 0px; }
+    .stButton>button {
+        background-color: #ff0050;
+        color: white;
+        border-radius: 5px;
+        height: 3em;
+        width: 100%;
+        font-weight: bold;
+        border: none;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-# 1. Video Seçimi
-st.markdown("### 🎬 1. İşlenecek Videoyu Seç")
-video_file = st.file_uploader("Maç özetini veya ham videoyu yükle", type=['mp4', 'mov', 'avi'])
+st.markdown("### ZMK STUDIO")
+st.markdown("<h1>AI COMP MAKER</h1>", unsafe_allow_html=True)
 
-# 2. Hedef Oyuncu Seçimi
-st.markdown("### 📸 2. Hedef Oyuncu/Kişi Fotoğrafı Seç")
-player_img = st.file_uploader("Kimin klibini yapalım? (Örn: Rafa Silva yüzü)", type=['jpg', 'png', 'jpeg'])
+# 1. Bölüm: Video Seçimi
+st.markdown("#### 🎬 1. İşlenecek Videoyu Seç")
+video_file = st.file_uploader("", type=['mp4', 'mov'], key="video")
 
-# 3. Turbo Hızı (Atlama Katsayısı)
-turbo_speed = st.number_input("⚡ Turbo Hızı (Kat):", min_value=1, max_value=10, value=3)
+# 2. Bölüm: Oyuncu Seçimi
+st.markdown("#### 📸 2. Hedef Oyuncu/Kişi Fotoğrafı Seç")
+player_img = st.file_uploader("", type=['jpg', 'png', 'jpeg'], key="player")
 
-# OLUŞTUR BUTONU
-if st.button("✂️ COMP OLUŞTUR", use_container_width=True):
+# 3. Bölüm: Turbo Hızı
+turbo = st.number_input("⚡ Turbo Hızı (Kat):", min_value=1, max_value=10, value=3)
+
+# Oluştur Butonu
+if st.button("✂️ COMP OLUŞTUR"):
     if video_file and player_img:
-        st.warning("AI Analizi Başladı... Oyuncu sahneleri taranıyor. Bu işlem videonun uzunluğuna göre vakit alabilir.")
-        
-        # BURADA YAPAY ZEKA MANTIĞI ÇALIŞACAK:
-        # 1. Video kare kare okunur.
-        # 2. player_img içindeki yüz ile videodaki yüzler karşılaştırılır.
-        # 3. Eşleşen sahneler kesilip birleştirilir.
-        
-        st.info("Ücretsiz sunucu kotası nedeniyle ilk 30 saniye işleniyor...")
+        st.info("Analiz başlatılıyor... Oyuncu videoda taranıyor.")
+        # Buraya video işleme fonksiyonu gelecek
     else:
-        st.error("Lütfen hem videoyu hem de hedef oyuncu fotoğrafını yükle!")
+        st.error("Lütfen önce video ve oyuncu fotoğrafını yükle!")
